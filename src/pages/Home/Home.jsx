@@ -1,11 +1,12 @@
-import React from 'react';
+import React from 'react'
+import Navbar from '../../components/Navbar/Navbar'
 
 const Home = () => {
   return (
-      <div className='flex bg-red-500'>
-        <h1>Home</h1>
-      </div>
-  );
-};
+    <div className="flex">
+      <Navbar />
+    </div>
+  )
+}
 
-export default Home;
+export default Home
