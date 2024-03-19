@@ -21,7 +21,7 @@ const Login = () => {
   };
 
   return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-screen bg-bleue">
         <div className="max-w-md mx-auto bg-white rounded p-6 shadow-md w-full">
           <h2 className="text-2xl mb-4">Connexion</h2>
           <form onSubmit={handleSubmit}>
