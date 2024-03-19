@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {createChallenger} from "../../api/challenger.js";
+
 
 const Register = () => {
-  const [prenom, setPrenom] = useState('');
-  const [nom, setNom] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handlePrenomChange = (e) => {
-    setPrenom(e.target.value);
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
   };
 
-  const handleNomChange = (e) => {
-    setNom(e.target.value);
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
   };
 
   const handleEmailChange = (e) => {
@@ -26,9 +29,12 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
+      await createChallenger(lastName, firstName, email, password);
+      navigate('/');
+
       console.log('Inscription réussie');
     } catch (error) {
-      // Gérer les erreurs d'inscription
       console.error('Erreur lors de l\'inscription :', error.message);
     }
   };
@@ -41,11 +47,11 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="prenom" className="block text-gray-700 text-sm font-bold mb-2">Prénom</label>
-                <input type="text" id="prenom" name="prenom" value={prenom} onChange={handlePrenomChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <input type="text" id="prenom" name="prenom" value={lastName} onChange={handleLastNameChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
               </div>
               <div className="mb-4">
                 <label htmlFor="nom" className="block text-gray-700 text-sm font-bold mb-2">Nom</label>
-                <input type="text" id="nom" name="nom" value={nom} onChange={handleNomChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <input type="text" id="nom" name="nom" value={firstName} onChange={handleFirstNameChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
               </div>
               <div className="mb-4">
                 <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>

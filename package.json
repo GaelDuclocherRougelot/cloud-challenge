@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@firebase/app": "^0.9.29",
+    "axios": "^1.6.8",
     "firebase": "^10.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
