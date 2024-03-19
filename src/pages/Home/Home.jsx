@@ -6,7 +6,7 @@ const Home = () => {
       <div className='flex bg-red-500'>
         <h1>Accueil</h1>
       </div>
-      <div className='flex'>
+      <div className='flex justify-between'>
       <td>
         Top 3 de la semaine
       <tr>
@@ -19,8 +19,7 @@ const Home = () => {
           John doe
       </tr>
       </td>
-      <p>Challenge réalisés cette semaine</p>
-      <p>12</p>
+      <p>Challenge réalisés cette semaine <br/><span>12</span></p>
       </div>
       <input type="text" placeholder='Chercher un challenge...' />
     </header>
