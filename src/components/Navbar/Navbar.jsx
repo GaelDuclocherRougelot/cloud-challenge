@@ -33,7 +33,7 @@ export default function Navbar() {
           nav_links.map((link, index) => (
             <Link
               to={link.slug}
-              className={`${location.pathname === link.slug ? 'bg-blue-700 text-white' : ''} p-3  rounded-md`}
+              className={`${location.pathname === link.slug ? 'bg-bleue text-white' : ''} p-3  rounded-md`}
               key={index}
             >
               <li>{link.title}</li>
