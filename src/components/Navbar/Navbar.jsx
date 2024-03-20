@@ -15,7 +15,7 @@ const nav_links = [
     slug: '/correct-challenges',
   },
   {
-    title: 'Mon profil',
+    title: 'Mon Profil',
     slug: '/my-profil',
   },
   {
@@ -39,6 +39,8 @@ export default function Navbar() {
               <li>{link.title}</li>
             </Link>
           ))}
+
+          <button className='bg-blue-300 text-white p-3 rounded-md'>Déconnexion</button>
       </ul>
     </nav>
   )
