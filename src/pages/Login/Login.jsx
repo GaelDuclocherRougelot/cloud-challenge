@@ -59,7 +59,7 @@ const Login = () => {
             </div>
             <div className="flex flex-col items-center">
               <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-3 py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                <Link to="/home">Se connecter</Link>
+                Se connecter
               </button>
               <Link to="/register" className="mt-4 text-blue-500 hover:underline">Si vous n'êtes pas inscrit, cliquez ici !</Link>
             </div>
