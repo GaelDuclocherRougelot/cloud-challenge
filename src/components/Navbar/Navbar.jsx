@@ -27,7 +27,7 @@ const nav_links = [
 export default function Navbar() {
   const location = useLocation()
   return (
-    <nav className="flex flex-col w-[240px] h-[100vh]  left-0 top-0 rounded-e-xl shadow-md border-r border-y py-3 px-4">
+    <nav className="flex bg-white fixed flex-col w-[240px] h-[100vh]  left-0 top-0 rounded-e-xl shadow-md border-r border-y p-4">
       <ul className="flex flex-col gap-6">
         {nav_links.length > 0 &&
           nav_links.map((link, index) => (
@@ -40,7 +40,9 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <button className='bg-blue-300 text-white p-3 rounded-md'>Déconnexion</button>
+        <button className="bg-blue-300 text-white p-3 rounded-md">
+          Déconnexion
+        </button>
       </ul>
     </nav>
   )
