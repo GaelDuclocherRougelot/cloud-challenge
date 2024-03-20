@@ -24,7 +24,6 @@ const nav_links = [
     slug: '/contribution',
   },
 ]
-
 const logout = async () => {
 
   try {
@@ -35,7 +34,6 @@ const logout = async () => {
     console.error('Erreur lors de la deconnexion :', error.message);
   }
 }
-
 export default function Navbar() {
   const location = useLocation()
   return (

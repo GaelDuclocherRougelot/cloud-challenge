@@ -35,9 +35,8 @@ const Register = () => {
       const user = await createUserWithEmailAndPassword(auth, email, password);
       console.log(user);
 
-      await createChallenger(user.user.uid, lastName, firstName, email, password);
+      await createChallenger(lastName, firstName);
       navigate('/');
-
 
       console.log('Inscription réussie');
     } catch (error) {

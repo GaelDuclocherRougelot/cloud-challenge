@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {createChallenge} from "../../../api/challenge.js";
 
 export default function FormCreateChallenge() {
   const [title, setTitle] = useState('');
@@ -6,13 +7,30 @@ export default function FormCreateChallenge() {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    console.log({ title, githubLink, description, category });
-    setTitle('');
-    setGithubLink('');
-    setDescription('');
-    setCategory('');
+
+    if (!title || !githubLink || !description || !category) {
+      console.error('Veuillez remplir tous les champs.');
+      return;
+    }
+
+    // const githubLinkRegex = /^https?://(www.)?github.com/\S+$/;
+    // if (!githubLinkRegex.test(githubLink)) {
+    //   console.error('Veuillez entrer un lien GitHub valide.');
+    //   return;
+    // }
+
+    try {
+      await createChallenge(title, githubLink, description, category);
+
+      setTitle('');
+      setGithubLink('');
+      setDescription('');
+      setCategory('');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
