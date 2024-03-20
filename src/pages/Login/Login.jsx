@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import {login} from "../../api/challenger.js";
+import {Link, useNavigate} from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../../utils/firebase_init.js";
+import firebase from "firebase/compat";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate()
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -17,9 +19,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await login(email, password);
-    console.log('Email:', email);
-    console.log('Mot de passe:', password);
+    await signInWithEmailAndPassword(auth, email, password);
+    await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    navigate('/home');
+
   };
 
   return (
@@ -39,7 +42,7 @@ const Login = () => {
               <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-3 py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 <Link to="/home">Se connecter</Link>
               </button>
-              <Link to="/register" className="mt-4 text-blue-500 hover:underline">Si vous n'êtes pas inscrit, cliquez ici</Link>
+              <Link to="/register" className="mt-4 text-blue-500 hover:underline">Si vous n'êtes pas inscrit, cliquez ici !</Link>
             </div>
           </form>
         </div>

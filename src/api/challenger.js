@@ -3,13 +3,12 @@ import {db} from '../utils/firebase_init.js';
 import {useNavigate} from "react-router-dom";
 
 
-export const createChallenger = async (lastName, firstName, email, password) => {
+export const createChallenger = async (id , lastName, firstName) => {
   try {
     const docRef = await addDoc(collection(db, "Challenger"), {
+      id: id,
       lastName,
       firstName,
-      email,
-      password,
       challenges_success: [],
       challenges_created: [],
       level: 1
@@ -21,6 +20,7 @@ export const createChallenger = async (lastName, firstName, email, password) => 
 }
 
 export const login = async (email, password) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate = useNavigate();
   try {
     const usersQuery = query(collection(db, "Challenger"), where("email", "==", email), where("password", "==", password));
@@ -36,3 +36,4 @@ export const login = async (email, password) => {
     console.error("Erreur lors de la connexion : ", e);
   }
 }
+

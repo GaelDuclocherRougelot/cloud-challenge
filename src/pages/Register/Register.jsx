@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {createChallenger} from "../../api/challenger.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../../utils/firebase_init.js";
 
 
 const Register = () => {
@@ -28,10 +30,14 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
 
-      await createChallenger(lastName, firstName, email, password);
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+
+      await createChallenger(user.user.uid, lastName, firstName, email, password);
       navigate('/');
+
 
       console.log('Inscription réussie');
     } catch (error) {
