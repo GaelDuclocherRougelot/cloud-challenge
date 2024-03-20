@@ -2,7 +2,7 @@ import Header from './component/Header'
 import Navbar from '../../components/Navbar/Navbar'
 const Home = () => {
   return (
-    <div className='flex h-[100vh]'>
+    <div className='flex'>
       <Navbar />
       <Header />
     </div>

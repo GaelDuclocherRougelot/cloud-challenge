@@ -4,7 +4,9 @@ import Contribution from "./pages/Contribution/Contribution.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Register from "./pages/Register/Register.jsx";
-import Profil from "./pages/profil/Profil.jsx";
+import Profil from "./pages/Profil/Profil.jsx";
+import CreateChallenge from "./pages/Create-challenge/CreateChallenge.jsx";
+import CorrectChallenges from "./pages/Correct-challenges/CorrectChallenges.jsx";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/challenges" element={<Challenges />} />
         <Route path="/contribution" element={<Contribution />} />
         <Route path="/my-profil" element={<Profil />} />
+        <Route path="/create-challenge" element={<CreateChallenge />} />
+        <Route path="/correct-challenges" element={<CorrectChallenges />} />
       </Routes>
     </>
   )

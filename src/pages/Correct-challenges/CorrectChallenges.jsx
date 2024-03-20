@@ -1,11 +1,11 @@
 import React from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 
-export default function Profil() {
+export default function CorrectChallenges() {
   return (
-    <div>
+    <div> 
         <Navbar />
-      <h1>PROFIL</h1>
+      <h1>Créer un challenge</h1>
     </div>
   )
 }
