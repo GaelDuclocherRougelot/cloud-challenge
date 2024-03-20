@@ -1,6 +1,8 @@
 import Header from './component/Header'
 import Navbar from '../../components/Navbar/Navbar'
+
 const Home = () => {
+
   return (
     <div className='flex'>
       <Navbar />
