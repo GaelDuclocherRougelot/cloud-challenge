@@ -6,12 +6,12 @@ export default function ChallengeCard({ challenge }) {
       <div className="flex items-center gap-4">
         {/* <img src="#" alt="profile picture" /> */}
         <div className="flex flex-col">
-          <p>Username - lvl 1</p>
+          <p className="text-sm">Username - lvl 1</p>
           <p className="text-xs">Il y a 5 min</p>
         </div>
       </div>
       <div className="flex flex-col gap-2 overflow-hidden">
-        <p className="text-lg">{challenge.title}</p>
+        <p className="text-2xl">{challenge.title}</p>
         <p className="text-sm line-clamp-3 text-ellipsis">
           {challenge.description}
         </p>
