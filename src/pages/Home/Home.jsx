@@ -1,4 +1,6 @@
+
 const Home = () => {
+
   return (
     <header>
       <div className='flex bg-red-500'>
@@ -20,6 +22,8 @@ const Home = () => {
       <p>Challenge réalisés cette semaine <br/><span>12</span></p>
       </div>
       <input type="text" placeholder='Chercher un challenge...' />
+
+      <button>Deconnexion</button>
     </header>
       
 

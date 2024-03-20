@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {auth} from "../../utils/firebase_init.js";
-import firebase from "firebase/compat";
+import {auth, app} from "../../utils/firebase_init.js";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,11 +18,31 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signInWithEmailAndPassword(auth, email, password);
-    await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    navigate('/home');
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      await auth.setPersistence(app.auth.Auth.Persistence.SESSION);
+      navigate('/home');
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error.message);
+    }
 
-  };
+  }
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          navigate('/home');
+        } catch (error) {
+          console.error('Erreur lors de la configuration de la persistance :', error.message);
+        }
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [navigate]);
 
   return (
       <div className="flex items-center justify-center h-screen bg-bleue">
