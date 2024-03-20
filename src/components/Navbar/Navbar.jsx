@@ -16,18 +16,18 @@ const nav_links = [
   },
   {
     title: 'Mon profil',
-    slug: 'my-profile',
+    slug: '/my-profil',
   },
   {
     title: 'Contribution',
-    slug: '/contribute',
+    slug: '/contribution',
   },
 ]
 
 export default function Navbar() {
   const location = useLocation()
   return (
-    <nav className="flex flex-col w-[240px] h-full fixed left-0 top-0 rounded-e-xl shadow-md border-r border-y py-3 px-4">
+    <nav className="flex flex-col w-[240px] h-[100vh]  left-0 top-0 rounded-e-xl shadow-md border-r border-y py-3 px-4">
       <ul className="flex flex-col gap-6">
         {nav_links.length > 0 &&
           nav_links.map((link, index) => (
