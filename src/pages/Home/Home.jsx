@@ -20,7 +20,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const q = query(collection(db, 'challenges'), limit(2))
+      const q = query(collection(db, 'challenges'), limit(5))
 
       onSnapshot(q, (querySnapshot) => {
         let items = []
@@ -28,7 +28,9 @@ const Home = () => {
           items.push({ key: doc.id, ...doc.data() })
         })
         setChallengeList(items)
+        
       })
+      
     }
     fetchData()
   }, [])

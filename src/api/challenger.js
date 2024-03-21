@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from '../utils/firebase_init.js';
 
 export const createChallenger = async (lastName, firstName) => {
@@ -25,14 +25,20 @@ export const createChallenger = async (lastName, firstName) => {
   }
 }
 
-export const getUser = async () => {
-    try {
-      const user = auth.currentUser.uid;
-      console.log(user)
-      if (user) {
-        return user;
-      }
-
-  } catch (e) {
-      console.error("Erreur lors de la recuperation de l'utilisateur :", e);}
-}
+export const getChallengerById = async (userId) => {
+  try {
+    const challengerDocRef = doc(db, "Challenger", userId);
+    const challengerSnapshot = await getDoc(challengerDocRef);
+    if (challengerSnapshot.exists()) {
+      console.log(challengerSnapshot.data())
+      return challengerSnapshot.data();
+    } else {
+      console.log("Aucun challenger trouvé avec l'ID :", userId);
+      return null;
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération du challenger :", error.message);
+    return null;
+  }
+  
+};

@@ -1,4 +1,34 @@
-/* eslint-disable react/prop-types */
+
+function formatCreatedAt(createdAt) {
+    const currentDate = new Date();
+    const createdDate = new Date(createdAt);
+
+    const timeDifference = currentDate.getTime() - createdDate.getTime();
+    const secondsDifference = Math.floor(timeDifference / 1000);
+    const minutesDifference = Math.floor(secondsDifference / 60);
+    const hoursDifference = Math.floor(minutesDifference / 60);
+    const daysDifference = Math.floor(hoursDifference / 24);
+    const weeksDifference = Math.floor(daysDifference / 7);
+    const monthsDifference = Math.floor(daysDifference / 30);
+    const yearsDifference = Math.floor(daysDifference / 365);
+ 
+    if (yearsDifference > 0) {
+        return `créé il y a ${yearsDifference} an${yearsDifference > 1 ? 's' : ''}`;
+    } else if (monthsDifference > 0) {
+        return `créé il y a ${monthsDifference} mois`;
+    } else if (weeksDifference > 0) {
+        return `créé il y a ${weeksDifference} semaine${weeksDifference > 1 ? 's' : ''}`;
+    } else if (daysDifference > 0) {
+        return `créé il y a ${daysDifference} jour${daysDifference > 1 ? 's' : ''}`;
+    } else if (hoursDifference > 0) {
+        return `créé il y a ${hoursDifference} heure${hoursDifference > 1 ? 's' : ''}`;
+    } else if (minutesDifference > 0) {
+        return `créé il y a ${minutesDifference} minute${minutesDifference > 1 ? 's' : ''}`;
+    } else {
+        return `créé il y a quelques instants`;
+    }
+}
+
 export default function ChallengeCard({ challenge }) {
   console.log('Challenge: ', challenge)
   return (
@@ -7,7 +37,7 @@ export default function ChallengeCard({ challenge }) {
         {/* <img src="#" alt="profile picture" /> */}
         <div className="flex flex-col">
           <p className="text-sm">Username - lvl 1</p>
-          <p className="text-xs">Il y a 5 min</p>
+          <p className="text-xs">{formatCreatedAt(challenge.createdAt)}</p>
         </div>
       </div>
       <div className="flex flex-col gap-2 overflow-hidden">
@@ -19,7 +49,7 @@ export default function ChallengeCard({ challenge }) {
       <div className="flex flex-col gap-2">
         <p className="text-lg">Lien Github:</p>
         <a href="#" className="text-sm">
-          {challenge.link_github}
+          {challenge.githubLink}
         </a>
       </div>
       <div className="flex justify-between gap-2 items-center">
@@ -27,7 +57,7 @@ export default function ChallengeCard({ challenge }) {
           <p className="text-lg">Catégories:</p>
           <div className="flex gap-2">
             <span className="rounded-md bg-bl_active text-white w-fit px-4 py-[3px] text-xs">
-              React
+              {challenge.category}
             </span>{' '}
           </div>
         </div>
