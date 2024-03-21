@@ -1,4 +1,4 @@
-import {addDoc, collection, doc, updateDoc, arrayUnion} from "firebase/firestore";
+import {addDoc, collection, doc, updateDoc, arrayUnion, getDocs} from "firebase/firestore";
 import {auth, db} from "../utils/firebase_init.js";
 
 export const createChallenge = async (title, githubLink, description, category, firstName, lastName  ) => {
@@ -37,3 +37,29 @@ export const createChallenge = async (title, githubLink, description, category, 
     console.error("Error adding document: ", e);
   }
 }
+
+export const getAllChallenges = async () => {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("Utilisateur non connecté");
+      return [];
+    }
+
+    const challengesSnapshot = await getDocs(collection(db, "challenges"));
+    const challenges = [];
+
+    challengesSnapshot.forEach((doc) => {
+      const challengeData = { id: doc.id, ...doc.data() };
+      if (challengeData.createdBy.uid !== user.uid && !challengeData.validated) {
+        challenges.push(challengeData);
+      }
+    });
+
+    return challenges;
+  } catch (e) {
+    console.error("Erreur lors de la récupération des challenges :", e);
+    return [];
+  }
+};
+

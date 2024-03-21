@@ -13,6 +13,7 @@ import ChallengeCards from '../../components/ChallengeCards/ChallengeCards'
 import Navbar from '../../components/Navbar/Navbar'
 import { db } from '../../utils/firebase_init'
 import Header from './component/Header'
+import {getAllChallenges} from "../../api/challenge.js";
 //import { UseAuthContext } from '../../hooks/UseAuthContext';
 
 const Home = () => {
@@ -42,9 +43,6 @@ const fetchData = async () => {
     console.error('Erreur lors de la récupération des données :', error);
   }
 };
-const filteredChallengeList = challengeList.filter((challenge) =>
-challenge.title.toLowerCase().includes(searchInput.toLowerCase())
-);
 
   const showNext = ({ item }) => {
     if (challengeList.length === 0) {
@@ -92,6 +90,21 @@ challenge.title.toLowerCase().includes(searchInput.toLowerCase())
     fetchPreviousData()
   }
 
+  const [challenges, setChallenges] = useState([]);
+
+  useEffect(() => {
+    const fetchChallenges = async () => {
+      try {
+        const challengesData = await getAllChallenges();
+        setChallenges(challengesData);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des challenges :", error);
+      }
+    };
+
+    fetchChallenges();
+  }, []);
+
   return (
     <div className="flex size-full">
       <Navbar />
@@ -104,7 +117,7 @@ challenge.title.toLowerCase().includes(searchInput.toLowerCase())
           value={searchInput}
           onChange={handleSearchInputChange}
         />
-       <ChallengeCards challengeList={filteredChallengeList} />
+       <ChallengeCards challenges={challenges} />
         <div>
           {
             //show previous button only when we have items
