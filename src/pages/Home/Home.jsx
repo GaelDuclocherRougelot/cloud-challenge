@@ -18,25 +18,33 @@ import Header from './component/Header'
 const Home = () => {
   const [challengeList, setChallengeList] = useState([])
   const [page, setPage] = useState(1)
- // const { currentUser } = UseAuthContext(); // Récupérez currentUser depuis le contexte
+  const [searchInput, setSearchInput] = useState('');
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
 
- // console.log("Données de l'utilisateur :", currentUser);
-  useEffect(() => {
-    const fetchData = async () => {
-      const q = query(collection(db, 'challenges'), limit(5))
+useEffect(() => {
+  fetchData();
+}, [searchInput]);
 
-      onSnapshot(q, (querySnapshot) => {
-        let items = []
-        querySnapshot.forEach((doc) => {
-          items.push({ key: doc.id, ...doc.data() })
-        })
-        setChallengeList(items)
-        
-      })
-      
-    }
-    fetchData()
-  }, [])
+const fetchData = async () => {
+  try {
+    const q = query(collection(db, 'challenges'), orderBy('createdAt', 'desc'));
+
+    onSnapshot(q, (querySnapshot) => {
+      let items = [];
+      querySnapshot.forEach((doc) => {
+        items.push({ key: doc.id, ...doc.data() });
+      });
+      setChallengeList(items);
+    });
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données :', error);
+  }
+};
+const filteredChallengeList = challengeList.filter((challenge) =>
+challenge.title.toLowerCase().includes(searchInput.toLowerCase())
+);
 
   const showNext = ({ item }) => {
     if (challengeList.length === 0) {
@@ -89,7 +97,14 @@ const Home = () => {
       <Navbar />
       <main className="flex flex-col gap-10 pl-[270px] p-10 size-full">
         <Header />
-        <ChallengeCards challengeList={challengeList} />
+        <input
+          className="px-5 py-1 border"
+          type="text"
+          placeholder="Chercher un challenge..."
+          value={searchInput}
+          onChange={handleSearchInputChange}
+        />
+       <ChallengeCards challengeList={filteredChallengeList} />
         <div>
           {
             //show previous button only when we have items

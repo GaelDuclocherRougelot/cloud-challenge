@@ -16,11 +16,6 @@ export default function header() {
           <span className="text-3xl font-semibold">12</span>
         </p>
       </div>
-      <input
-        className="px-5 py-1 border"
-        type="text"
-        placeholder="Chercher un challenge..."
-      />
     </header>
   )
 }
