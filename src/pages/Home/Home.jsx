@@ -32,7 +32,7 @@ const Home = () => {
       const q = query(
         collection(db, 'challenges'),
         orderBy('createdAt', 'desc'),
-        limit(3)
+        limit(10)
       )
 
       onSnapshot(q, (querySnapshot) => {
@@ -51,14 +51,14 @@ const Home = () => {
   )
 
   const showNext = ({ item }) => {
-    if (challengeList.length < 2) {
+    if (challengeList.length === 0) {
       console.log('MAX PAGE')
     } else {
       const fetchNextData = async () => {
         const q = query(
           collection(db, 'challenges'),
           orderBy('createdAt', 'desc'),
-          limit(3),
+          limit(10),
           startAfter(item.createdAt)
         )
 
@@ -91,7 +91,7 @@ const Home = () => {
         collection(db, 'challenges'),
         orderBy('createdAt', 'desc'),
         endBefore(item.createdAt),
-        limitToLast(3)
+        limitToLast(10)
       )
 
       onSnapshot(q, (querySnapshot) => {
@@ -140,7 +140,7 @@ const Home = () => {
               </svg>
             </button>
             <button
-              className={`${challengeList.length < 3 ? '' : ' border-black'} border p-2`}
+              className={`${challengeList.length < 10 ? '' : ' border-black'} border p-2`}
               onClick={() => {
                 showNext({ item: challengeList[challengeList.length - 1] })
               }}
