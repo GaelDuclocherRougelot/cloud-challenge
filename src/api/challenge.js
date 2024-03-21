@@ -1,4 +1,4 @@
-import {addDoc, collection, doc, updateDoc, increment} from "firebase/firestore";
+import {addDoc, collection, doc, updateDoc, arrayUnion} from "firebase/firestore";
 import {auth, db} from "../utils/firebase_init.js";
 
 export const createChallenge = async (title, githubLink, description, category, firstName, lastName  ) => {
@@ -28,10 +28,10 @@ export const createChallenge = async (title, githubLink, description, category, 
 
     const userDocRef = doc(db, "Challenger", user.uid);
     await updateDoc(userDocRef, {
-      challenges_created: increment(1)
+      challenges_created: arrayUnion({
+        id: docRef.id,
+      })
     })
-
-    console.log("Nombre de challenges créés mis à jour pour l'utilisateur.");
 
   } catch (e) {
     console.error("Error adding document: ", e);
