@@ -24,7 +24,6 @@ const nav_links = [
     slug: '/contribution',
   },
 ]
-
 const logout = async () => {
 
   try {
@@ -35,11 +34,10 @@ const logout = async () => {
     console.error('Erreur lors de la deconnexion :', error.message);
   }
 }
-
 export default function Navbar() {
   const location = useLocation()
   return (
-    <nav className="flex flex-col w-[240px] h-[100vh]  left-0 top-0 rounded-e-xl shadow-md border-r border-y py-3 px-4">
+    <nav className="flex flex-col w-[240px] h-[100vh] fixed bg-white left-0 top-0 rounded-e-xl shadow-md border-r border-y py-3 px-4">
       <ul className="flex flex-col gap-6">
         {nav_links.length > 0 &&
           nav_links.map((link, index) => (

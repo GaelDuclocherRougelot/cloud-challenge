@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth, app} from "../../utils/firebase_init.js";
+import { getChallengerById } from "../../api/challenger.js";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,7 +20,8 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+     const challenger = await signInWithEmailAndPassword(auth, email, password);
+      await getChallengerById(challenger.user.uid);
       await auth.setPersistence(app.auth.Auth.Persistence.SESSION);
       navigate('/home');
     } catch (error) {

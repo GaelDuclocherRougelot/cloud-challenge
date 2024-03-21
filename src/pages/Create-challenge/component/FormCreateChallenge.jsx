@@ -1,18 +1,38 @@
 import { useState } from 'react';
-
+import {createChallenge} from "../../../api/challenge.js";
+import { UseAuthContext } from '../../../hooks/UseAuthContext.jsx';
 export default function FormCreateChallenge() {
   const [title, setTitle] = useState('');
   const [githubLink, setGithubLink] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const { currentUser } = UseAuthContext(); // Récupérez currentUser depuis le contexte
 
-  const handleSubmit = (e) => {
+  console.log("Données de l'utilisateur :", currentUser);
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    console.log({ title, githubLink, description, category });
-    setTitle('');
-    setGithubLink('');
-    setDescription('');
-    setCategory('');
+
+    if (!title || !githubLink || !description || !category) {
+      console.error('Veuillez remplir tous les champs.');
+      return;
+    }
+
+    // const githubLinkRegex = /^https?://(www.)?github.com/\S+$/;
+    // if (!githubLinkRegex.test(githubLink)) {
+    //   console.error('Veuillez entrer un lien GitHub valide.');
+    //   return;
+    // }
+
+    try {
+      await createChallenge(title, githubLink, description, category, currentUser.lastName, currentUser.firstName );
+
+      setTitle('');
+      setGithubLink('');
+      setDescription('');
+      setCategory('');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
