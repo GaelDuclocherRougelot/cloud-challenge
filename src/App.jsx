@@ -9,6 +9,7 @@ import CreateChallenge from "./pages/Create-challenge/CreateChallenge.jsx";
 import CorrectChallenges from "./pages/Correct-challenges/CorrectChallenges.jsx";
 
 function App() {
+
   return (
 
     <>

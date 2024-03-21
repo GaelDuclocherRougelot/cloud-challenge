@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import {createChallenge} from "../../../api/challenge.js";
-
+import { UseAuthContext } from '../../../hooks/UseAuthContext.jsx';
 export default function FormCreateChallenge() {
   const [title, setTitle] = useState('');
   const [githubLink, setGithubLink] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const { currentUser } = UseAuthContext(); // Récupérez currentUser depuis le contexte
 
+  console.log("Données de l'utilisateur :", currentUser);
   const handleSubmit =async (e) => {
     e.preventDefault();
 
@@ -22,7 +24,7 @@ export default function FormCreateChallenge() {
     // }
 
     try {
-      await createChallenge(title, githubLink, description, category);
+      await createChallenge(title, githubLink, description, category, currentUser.lastName, currentUser.firstName );
 
       setTitle('');
       setGithubLink('');

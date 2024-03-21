@@ -13,11 +13,14 @@ import ChallengeCards from '../../components/ChallengeCards/ChallengeCards'
 import Navbar from '../../components/Navbar/Navbar'
 import { db } from '../../utils/firebase_init'
 import Header from './component/Header'
+//import { UseAuthContext } from '../../hooks/UseAuthContext';
 
 const Home = () => {
   const [challengeList, setChallengeList] = useState([])
   const [page, setPage] = useState(1)
+ // const { currentUser } = UseAuthContext(); // Récupérez currentUser depuis le contexte
 
+ // console.log("Données de l'utilisateur :", currentUser);
   useEffect(() => {
     const fetchData = async () => {
       const q = query(collection(db, 'challenges'), limit(5))
