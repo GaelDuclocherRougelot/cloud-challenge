@@ -1,7 +1,7 @@
 import {addDoc, collection, doc, updateDoc, increment} from "firebase/firestore";
 import {auth, db} from "../utils/firebase_init.js";
 
-export const createChallenge = async (title, githubLink, description, category) => {
+export const createChallenge = async (title, githubLink, description, category, firstName, lastName  ) => {
 
   try {
     const user = auth.currentUser;
@@ -17,7 +17,11 @@ export const createChallenge = async (title, githubLink, description, category) 
       description,
       category,
       createdAt: new Date().toISOString(),
-      createdBy: user.uid,
+      createdBy: {
+        uid: user.uid,
+        firstName: firstName,
+        lastName: lastName,
+      },
       level: 1
     });
     console.log("Document written with ID: ", docRef.id);
