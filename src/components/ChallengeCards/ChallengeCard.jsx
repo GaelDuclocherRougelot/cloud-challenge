@@ -36,7 +36,7 @@ export default function ChallengeCard({ challenge }) {
       <div className="flex items-center gap-4">
         {/* <img src="#" alt="profile picture" /> */}
         <div className="flex flex-col">
-          <p className="text-sm">Username - lvl 1</p>
+          <p className="text-sm">{challenge.createdBy.lastName} {challenge.createdBy.firstName } - Niveau {challenge.level}</p>
           <p className="text-xs">{formatCreatedAt(challenge.createdAt)}</p>
         </div>
       </div>
