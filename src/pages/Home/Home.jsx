@@ -14,7 +14,6 @@ import Navbar from '../../components/Navbar/Navbar'
 import { db } from '../../utils/firebase_init'
 import Header from './component/Header'
 import {getAllChallenges} from "../../api/challenge.js";
-//import { UseAuthContext } from '../../hooks/UseAuthContext';
 
 const Home = () => {
   const [challengeList, setChallengeList] = useState([])
@@ -105,6 +104,10 @@ const fetchData = async () => {
     fetchChallenges();
   }, []);
 
+  const filteredChallengeList = challenges.filter((challenge) =>
+      challenge.title.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
   return (
     <div className="flex size-full">
       <Navbar />
@@ -117,7 +120,7 @@ const fetchData = async () => {
           value={searchInput}
           onChange={handleSearchInputChange}
         />
-       <ChallengeCards challenges={challenges} />
+       <ChallengeCards challenges={filteredChallengeList} />
         <div>
           {
             //show previous button only when we have items

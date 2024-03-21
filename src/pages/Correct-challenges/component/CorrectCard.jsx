@@ -50,9 +50,9 @@ export const CorrectCard = ({solution}) => {
             </p>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="text-lg">Lien Github: {solution.githubLink}</p>
+            <p className="text-lg">Lien Github: </p>
             <a href="#" className="text-sm">
-
+              {solution.githubLink}
             </a>
           </div>
           <div className="flex justify-between gap-2 items-center">
