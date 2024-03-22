@@ -76,7 +76,7 @@ export default function ChallengeCard({ challenge }) {
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-lg">Lien Github:</p>
-          <a href="#" className="text-sm">
+          <a href={challenge.githubLink} className="text-sm">
             {challenge.githubLink}
           </a>
         </div>
