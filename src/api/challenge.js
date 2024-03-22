@@ -1,4 +1,4 @@
-import {addDoc, collection, doc, updateDoc, arrayUnion} from "firebase/firestore";
+import {addDoc, collection, doc, updateDoc, arrayUnion, getDocs} from "firebase/firestore";
 import {auth, db} from "../utils/firebase_init.js";
 
 export const createChallenge = async (title, githubLink, description, category, firstName, lastName  ) => {
@@ -37,3 +37,5 @@ export const createChallenge = async (title, githubLink, description, category, 
     console.error("Error adding document: ", e);
   }
 }
+
+

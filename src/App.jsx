@@ -1,4 +1,4 @@
-import {Route, Routes, Router} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Challenges from "./pages/Challenges/Challenges.jsx";
 import Contribution from "./pages/Contribution/Contribution.jsx";
 import Login from "./pages/Login/Login.jsx";
@@ -10,6 +10,7 @@ import CorrectChallenges from "./pages/Correct-challenges/CorrectChallenges.jsx"
 import { useAuthContext } from "./context/AuthContext.jsx";
 import NotFound from './components/NotFound/NotFound.jsx'
 import Message from "./components/message.jsx";
+
 function App() {
   const { currentUser } = useAuthContext();
   return (
@@ -38,6 +39,5 @@ function App() {
   );
 
 }
-
 
 export default App
