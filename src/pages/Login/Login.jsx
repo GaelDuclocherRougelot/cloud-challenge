@@ -1,13 +1,12 @@
 import  { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, app } from "../../utils/firebase_init.js";
-import { getChallengerById } from "../../api/challenger.js";
-import { showMessage } from '../../utils/messageUtils.js';
+import { useLogin } from "../../hooks/useLogin.jsx"
+import Loader from '../../components/Loader/Loader.jsx';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
+  const { loading, error, handleSubmit } = useLogin(email, password);
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -15,41 +14,6 @@ const Login = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-     const challenger = await signInWithEmailAndPassword(auth, email, password);
-      await getChallengerById(challenger.user.uid);
-     // await auth.setPersistence(app.auth.Auth.Persistence.SESSION);
-      navigate('/home');
-    } catch (error) {
-      console.error('Erreur lors de la connexion :', error.message);
-      showMessage({ content: 'Identifiant ou mot de passe incorrecte !', type: 'error' });
-      
-    }
-
-  }
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        try {
-          navigate('/home');
-          showMessage({ content: 'Connexion réussie !', type: 'success' });
-        } catch (error) {
-          console.error('Erreur lors de la configuration de la persistance :', error.message);
-          
-
-        }
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [navigate]);
 
   return (
       <div className="flex items-center justify-center h-screen bg-bleue">
@@ -72,6 +36,8 @@ const Login = () => {
             </div>
           </form>
         </div>
+        {loading && <Loader />}
+           {error && <div>{error}</div>}
       </div>
   );
 };
