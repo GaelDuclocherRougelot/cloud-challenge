@@ -8,15 +8,15 @@ import {
   getValidatedSolutions,
 } from '../../api/solution.js'
 import { CorrectCard } from '../Correct-challenges/component/CorrectCard.jsx'
-import { useAuthContext } from "../../context/AuthContext.jsx";
+import { useAuthContext } from '../../context/AuthContext.jsx'
 export default function Profil() {
-  const { currentUser } = useAuthContext();
+  const { currentUser } = useAuthContext()
   const [activeTab, setActiveTab] = useState('created')
   const [createdChallenges, setCreatedChallenges] = useState([])
   const [validatedSolutions, setValidatedSolutions] = useState([])
   const [failedSolutions, setFailedSolutions] = useState([])
   const user = auth.currentUser
-  
+
   useEffect(() => {
     const fetchCreatedChallenges = async () => {
       try {
@@ -66,10 +66,12 @@ export default function Profil() {
   }, [activeTab])
 
   return (
-    <div className="flex flex-col gap-10 pl-[270px] p-10 size-full">
+    <div className="flex flex-col gap-10 size-full">
       <Navbar />
-      <h1 className="text-3xl font-semibold">Profil de {currentUser.lastName} {currentUser.firstName}</h1>
-      <div className="flex justify-around">
+      <h1 className="text-3xl font-semibold">
+        Profil de {currentUser.firstName} {currentUser.lastName}
+      </h1>
+      <div className="flex gap-4 mt-8">
         <button
           className={`px-4 py-2 rounded-md ${activeTab === 'created' ? 'bg-blue-500 text-white' : 'text-blue-500 border border-blue-500'}`}
           onClick={() => setActiveTab('created')}
@@ -91,7 +93,7 @@ export default function Profil() {
           Challenges Echoués
         </button>
       </div>
-      <div className="mt-8">
+      <section>
         {activeTab === 'created' && (
           <div className="flex flex-wrap justify-center items-center w-full gap-4">
             {createdChallenges.map((challenge) => (
@@ -116,7 +118,7 @@ export default function Profil() {
           </div>
         )}
         {/* Ajouter d'autres cas pour les onglets restants */}
-      </div>
+      </section>
     </div>
   )
 }
