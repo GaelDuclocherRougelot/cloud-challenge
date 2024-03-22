@@ -1,5 +1,5 @@
-import React from 'react';
 
+import {useState} from "react";
 function formatCreatedAt(createdAt) {
   const currentDate = new Date();
   const createdDate = new Date(createdAt);
@@ -31,7 +31,15 @@ function formatCreatedAt(createdAt) {
 }
 
 export const CorrectCard = ({solution}) => {
-
+  const [showPopup, setShowPopup] = useState(false);
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+   // await createSolution(challenge, githubLink, currentUser);
+    setShowPopup(false);
+  };
   return (
       <div className='flex flex-col gap-10 p-10 size-full'>
         <div className="flex flex-col rounded-lg border border-border_card w-full p-6 gap-6 ">
@@ -64,11 +72,41 @@ export const CorrectCard = ({solution}) => {
                     </span>{' '}
               </div>
             </div>
-            <button className="w-fit h-fit self-end border border-btn_green text-sm text-btn_green px-4 py-3 rounded-md hover:bg-btn_green hover:text-white transition-colors duration-300 ease-in-out">
+            <button onClick={togglePopup} className="w-fit h-fit self-end border border-btn_green text-sm text-btn_green px-4 py-3 rounded-md hover:bg-btn_green hover:text-white transition-colors duration-300 ease-in-out">
               Soumettre ma réponse
           </button>
           </div>
         </div>
+        {showPopup && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
+              <div className="bg-white rounded-lg p-8">
+                <h2 className="text-2xl mb-4">Valider le challenge du challenger</h2>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-[40vw]">
+                  <div className="flex flex-col">
+                  </div>
+                  <button
+                      type="submit"
+                      className="bg-blue-500 hover:bg-blue-600 my-4 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Oui
+                  </button>
+                  <button
+                      type="submit"
+                      className="bg-red-500 hover:bg-red-600 my-4 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Non
+                  </button>
+                </form>
+                <button
+                    onClick={togglePopup}
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                >
+                  Fermer
+                </button>
+              </div>
+            </div>
+        )}
       </div>
+      
   );
 };

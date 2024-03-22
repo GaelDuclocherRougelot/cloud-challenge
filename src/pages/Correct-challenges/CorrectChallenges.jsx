@@ -27,7 +27,7 @@ export default function CorrectChallenges() {
       <>
         <div className='flex flex-col gap-10 pl-[270px] p-10 size-full'>
             <Navbar />
-          <h1>Créer un currentUser</h1>
+          <h1 className='text-3xl font-semibold'>Correction</h1>
           {solutions.length > 0 ? (
             solutions.map((solution, index) => (
               <CorrectCard key={index} solution={solution}/>
