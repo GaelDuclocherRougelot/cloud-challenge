@@ -19,7 +19,7 @@ export function useLogin(email, password) {
       navigate('/home');
     } catch (error) {
       console.error('Erreur lors de la connexion :', error.message);
-      setError('Identifiant ou mot de passe incorrect !');
+      showMessage({ content: 'Identifiant ou mot de passe incorrecte !', type: 'error' });
     } finally {
       setLoading(false);
     }

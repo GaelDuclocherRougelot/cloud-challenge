@@ -37,7 +37,7 @@ const Login = () => {
           </form>
         </div>
         {loading && <Loader />}
-           {error && <div>{error}</div>}
+       
       </div>
   );
 };
