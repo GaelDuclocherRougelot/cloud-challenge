@@ -3,8 +3,7 @@ import Navbar from '../../components/Navbar/Navbar';
 
 const Contribution = () => {
   return (
-      <div>
-        <Navbar />
+      <div className='size-full'>
         <h1>Contribution</h1>
       </div>
   );

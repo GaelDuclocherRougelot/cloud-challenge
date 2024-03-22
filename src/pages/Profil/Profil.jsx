@@ -3,8 +3,7 @@ import Navbar from '../../components/Navbar/Navbar'
 
 export default function Profil() {
   return (
-    <div>
-        <Navbar />
+    <div className="size-full">
       <h1>PROFIL</h1>
     </div>
   )

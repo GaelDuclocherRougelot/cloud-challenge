@@ -3,12 +3,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        bleue: '#246bb3',
-        bl_active: '#074A8E',
-        border_card: '#B2B9C0',
-        btn_green: '#306C74'
+        bleue: "#246bb3",
+        bl_active: "#074A8E",
+        border_card: "#B2B9C0",
+        btn_green: "#306C74",
+        fontFamily: {
+          sans: ['Open sans', "sans-serif"],
+        },
       },
     },
   },
   plugins: [],
-}
+};
