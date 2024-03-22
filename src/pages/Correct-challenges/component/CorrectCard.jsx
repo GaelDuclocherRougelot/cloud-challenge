@@ -18,7 +18,7 @@ export const CorrectCard = ({ solution }) => {
     const monthsDifference = Math.floor(daysDifference / 30)
     const yearsDifference = Math.floor(daysDifference / 365)
 
-    if (solution.status === "Validate" || solution.status === "Refus") {
+    if (solution.status === "Valide" || solution.status === "Refus") {
       if (yearsDifference > 0) {
         return `corrigé il y a ${yearsDifference} an${yearsDifference > 1 ? 's' : ''}`;
       } else if (monthsDifference > 0) {
