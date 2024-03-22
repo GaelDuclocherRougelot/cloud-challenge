@@ -9,30 +9,34 @@ import CreateChallenge from "./pages/Create-challenge/CreateChallenge.jsx";
 import CorrectChallenges from "./pages/Correct-challenges/CorrectChallenges.jsx";
 import { useAuthContext } from "./context/AuthContext.jsx";
 import NotFound from './components/NotFound/NotFound.jsx'
+import Message from "./components/message.jsx";
 function App() {
   const { currentUser } = useAuthContext();
-
   return (
-    <Routes>
-      {currentUser ? (
-        <>
-          <Route path="/home" element={<Home />} />
-          <Route path="/challenges" element={<Challenges />} />
-          <Route path="/contribution" element={<Contribution />} />
-          <Route path="/my-profil" element={<Profil />} />
-          <Route path="/create-challenge" element={<CreateChallenge />} />
-          <Route path="/correct-challenges" element={<CorrectChallenges />} />
-          <Route path="*" element={<NotFound/>} /> 
-        </>
-      ) : (
-        <>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} /> 
-          <Route path="*" element={<NotFound/>} /> 
-        </>
-      )}
-    </Routes>
+    <>
+    <Message />
+      <Routes>
+        {currentUser ? (
+          <>
+            <Route path="/home" element={<Home />} />
+            <Route path="/challenges" element={<Challenges />} />
+            <Route path="/contribution" element={<Contribution />} />
+            <Route path="/my-profil" element={<Profil />} />
+            <Route path="/create-challenge" element={<CreateChallenge />} />
+            <Route path="/correct-challenges" element={<CorrectChallenges />} />
+            <Route path="*" element={<NotFound/>} /> 
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} /> 
+            <Route path="*" element={<NotFound/>} /> 
+          </>
+        )}
+      </Routes>
+    </>
   );
+
 }
 
 
