@@ -4,6 +4,7 @@ import {auth} from "../../utils/firebase_init.js";
 import {getCreatedChallenges} from "../../api/challenge.js";
 import ChallengeCard from "../../components/ChallengeCards/ChallengeCard.jsx";
 import {getFailedSolutions, getValidatedSolutions} from "../../api/solution.js";
+import {CorrectCard} from "../Correct-challenges/component/CorrectCard.jsx";
 
 
 export default function Profil() {
@@ -84,7 +85,7 @@ export default function Profil() {
           {activeTab === 'created' && (
               <div className='flex flex-wrap justify-center items-center w-full gap-4'>
                 {createdChallenges.map(challenge => (
-                    <ChallengeCard key={challenge.id} challenge={challenge} isProfilePage={true}/>
+                    <ChallengeCard key={challenge.id} challenge={challenge} />
                 ))}
               </div>
           )}
@@ -92,7 +93,7 @@ export default function Profil() {
           {activeTab === 'validated' && (
               <div className='flex flex-wrap justify-center items-center w-full gap-4'>
                 {validatedSolutions.map(solution => (
-                    <ChallengeCard key={solution.id} challenge={solution} isProfilePage={true}/>
+                    <CorrectCard key={solution.id} solution={solution} />
                 ))}
               </div>
           )}
@@ -100,7 +101,7 @@ export default function Profil() {
           {activeTab === 'failed' && (
               <div className='flex flex-wrap justify-center items-center w-full gap-4'>
                 {failedSolutions.map(solution => (
-                    <ChallengeCard key={solution.id} challenge={solution} isProfilePage={true}/>
+                    <CorrectCard key={solution.id} solution={solution} />
                 ))}
               </div>
           )}
