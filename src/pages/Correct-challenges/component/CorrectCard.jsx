@@ -1,38 +1,56 @@
 import { useState } from 'react'
 import { failedSolution, validateSolution } from '../../../api/solution.js'
 
-function formatCreatedAt(createdAt) {
-  const currentDate = new Date()
-  const createdDate = new Date(createdAt)
 
-  const timeDifference = currentDate.getTime() - createdDate.getTime()
-  const secondsDifference = Math.floor(timeDifference / 1000)
-  const minutesDifference = Math.floor(secondsDifference / 60)
-  const hoursDifference = Math.floor(minutesDifference / 60)
-  const daysDifference = Math.floor(hoursDifference / 24)
-  const weeksDifference = Math.floor(daysDifference / 7)
-  const monthsDifference = Math.floor(daysDifference / 30)
-  const yearsDifference = Math.floor(daysDifference / 365)
-
-  if (yearsDifference > 0) {
-    return `corrigé par il y a ${yearsDifference} an${yearsDifference > 1 ? 's' : ''}`
-  } else if (monthsDifference > 0) {
-    return `corrigé il y a ${monthsDifference} mois`
-  } else if (weeksDifference > 0) {
-    return `corrigé il y a ${weeksDifference} semaine${weeksDifference > 1 ? 's' : ''}`
-  } else if (daysDifference > 0) {
-    return `corrigé il y a ${daysDifference} jour${daysDifference > 1 ? 's' : ''}`
-  } else if (hoursDifference > 0) {
-    return `corrigé il y a ${hoursDifference} heure${hoursDifference > 1 ? 's' : ''}`
-  } else if (minutesDifference > 0) {
-    return `corrigé il y a ${minutesDifference} minute${minutesDifference > 1 ? 's' : ''}`
-  } else {
-    return `corrigé il y a quelques instants`
-  }
-}
 
 export const CorrectCard = ({ solution }) => {
-  console.log(solution)
+
+  function formatCreatedAt(createdAt) {
+    const currentDate = new Date()
+    const createdDate = new Date(createdAt)
+  
+    const timeDifference = currentDate.getTime() - createdDate.getTime()
+    const secondsDifference = Math.floor(timeDifference / 1000)
+    const minutesDifference = Math.floor(secondsDifference / 60)
+    const hoursDifference = Math.floor(minutesDifference / 60)
+    const daysDifference = Math.floor(hoursDifference / 24)
+    const weeksDifference = Math.floor(daysDifference / 7)
+    const monthsDifference = Math.floor(daysDifference / 30)
+    const yearsDifference = Math.floor(daysDifference / 365)
+    
+    if (solution.status === "Validate" | solution.status === "Refus") {
+      if (yearsDifference > 0) {
+        return `corrigé il y a ${yearsDifference} an${yearsDifference > 1 ? 's' : ''}`;
+      } else if (monthsDifference > 0) {
+        return `corrigé il y a ${monthsDifference} mois`;
+      } else if (weeksDifference > 0) {
+        return `corrigé il y a ${weeksDifference} semaine${weeksDifference > 1 ? 's' : ''}`;
+      } else if (daysDifference > 0) {
+        return `corrigé il y a ${daysDifference} jour${daysDifference > 1 ? 's' : ''}`;
+      } else if (hoursDifference > 0) {
+        return `corrigé il y a ${hoursDifference} heure${hoursDifference > 1 ? 's' : ''}`;
+      } else if (minutesDifference > 0) {
+        return `corrigé il y a ${minutesDifference} minute${minutesDifference > 1 ? 's' : ''}`;
+      } else {
+        return `corrigé il y a quelques instants`;
+      }
+    } else if (solution.status === "En cours") {
+      if (yearsDifference > 0) {
+        return `envoyé il y a ${yearsDifference} an${yearsDifference > 1 ? 's' : ''}`;
+      } else if (monthsDifference > 0) {
+        return `envoyé il y a ${monthsDifference} mois`;
+      } else if (weeksDifference > 0) {
+        return `envoyé il y a ${weeksDifference} semaine${weeksDifference > 1 ? 's' : ''}`;
+      } else if (daysDifference > 0) {
+        return `envoyé il y a ${daysDifference} jour${daysDifference > 1 ? 's' : ''}`;
+      } else if (hoursDifference > 0) {
+        return `envoyé il y a ${hoursDifference} heure${hoursDifference > 1 ? 's' : ''}`;
+      } else if (minutesDifference > 0) {
+        return `envoyé il y a ${minutesDifference} minute${minutesDifference > 1 ? 's' : ''}`;
+      }
+    }
+  }
+  
   const [showPopup, setShowPopup] = useState(false)
   const togglePopup = () => {
     setShowPopup(!showPopup)
