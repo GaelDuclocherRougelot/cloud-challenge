@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {createChallenger} from "../../api/challenger.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../../utils/firebase_init.js";
-
+import { showMessage } from '../../utils/messageUtils.js';
 
 const Register = () => {
   const [lastName, setLastName] = useState('');
@@ -36,9 +36,9 @@ const Register = () => {
       console.log(user);
 
       await createChallenger(lastName, firstName);
-      navigate('/');
+      navigate('/home');
 
-      console.log('Inscription réussie');
+      showMessage({ content: 'Inscription réussie  !', type: 'success' });
     } catch (error) {
       console.error('Erreur lors de l\'inscription :', error.message);
     }

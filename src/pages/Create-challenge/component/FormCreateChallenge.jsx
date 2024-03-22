@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import {createChallenge} from "../../../api/challenge.js";
 import { UseAuthContext } from '../../../hooks/UseAuthContext.jsx';
+import { showMessage } from '../../../utils/messageUtils.js';
+import { useNavigate } from "react-router-dom";
 export default function FormCreateChallenge() {
   const [title, setTitle] = useState('');
   const [githubLink, setGithubLink] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const { currentUser } = UseAuthContext(); // Récupérez currentUser depuis le contexte
-
+  const navigate = useNavigate()
   console.log("Données de l'utilisateur :", currentUser);
   const handleSubmit =async (e) => {
     e.preventDefault();
@@ -30,6 +32,8 @@ export default function FormCreateChallenge() {
       setGithubLink('');
       setDescription('');
       setCategory('');
+      showMessage({ content: 'Challenge créer !', type: 'success' });
+      navigate('/home')
     } catch (error) {
       console.error(error);
     }
