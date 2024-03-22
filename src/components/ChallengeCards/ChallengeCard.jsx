@@ -62,7 +62,7 @@ export default function ChallengeCard({ challenge }) {
           {/* <img src="#" alt="profile picture" /> */}
           <div className="flex flex-col">
             <p className="text-md">
-              {challenge.createdBy.lastName} {challenge.createdBy.firstName} -
+              {challenge.createdBy.firstName} {challenge.createdBy.lastName} -
               Niveau {challenge.level}
             </p>
             <p className="text-xs">{formatCreatedAt(challenge.createdAt)}</p>
