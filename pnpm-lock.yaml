@@ -35,6 +35,9 @@ dependencies:
   react-redux:
     specifier: ^9.1.0
     version: 9.1.0(@types/react@18.2.67)(react@18.2.0)(redux@5.0.1)
+  react-router:
+    specifier: ^6.22.3
+    version: 6.22.3(react@18.2.0)
   react-router-dom:
     specifier: ^6.22.3
     version: 6.22.3(react-dom@18.2.0)(react@18.2.0)

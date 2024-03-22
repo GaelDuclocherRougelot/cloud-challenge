@@ -41,7 +41,7 @@ export default function FormCreateChallenge() {
   };
 
   return (
-    <div className='pl-10 py-3 size-full'>
+    <div className='py-3 size-full'>
       <h1 className='text-3xl font-semibold'>Créer un challenge</h1>
       <form noValidate className='flex flex-col pt-20 items-center ' onSubmit={handleSubmit}>
         <div className='flex flex-col'>

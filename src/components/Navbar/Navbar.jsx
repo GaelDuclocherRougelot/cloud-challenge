@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom/dist'
-import {auth} from "../../utils/firebase_init.js";
+import { auth } from '../../utils/firebase_init.js'
 
 const nav_links = [
   {
@@ -17,7 +17,7 @@ const nav_links = [
   },
   {
     title: 'Mon Profil',
-    slug: '/my-profil',
+    slug: '/my-profile',
   },
   {
     title: 'Contribution',
@@ -25,12 +25,11 @@ const nav_links = [
   },
 ]
 const logout = async () => {
-
   try {
-    await auth.signOut();
-    window.location.href = '/';
+    await auth.signOut()
+    window.location.href = '/'
   } catch (error) {
-    console.error('Erreur lors de la deconnexion :', error.message);
+    console.error('Erreur lors de la deconnexion :', error.message)
   }
 }
 export default function Navbar() {
@@ -49,7 +48,12 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <button className='bg-blue-300 text-white p-3 rounded-md' onClick={logout}>Déconnexion</button>
+        <button
+          className="bg-blue-300 text-white p-3 rounded-md"
+          onClick={logout}
+        >
+          Déconnexion
+        </button>
       </ul>
     </nav>
   )
