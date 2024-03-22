@@ -1,8 +1,9 @@
-
-export default function Loader() {
+function Loader() {
   return (
-    <div>
-      <h1>wait...</h1>
+    <div className="flex justify-center items-center fixed size-full z-50 bg-white">
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-bleue"></div>
     </div>
-  )
+  );
 }
+
+export default Loader;

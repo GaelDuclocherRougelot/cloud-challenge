@@ -29,7 +29,6 @@ const logout = async () => {
   try {
     await auth.signOut();
     window.location.href = '/';
-    console.log("Deconnexion 😀");
   } catch (error) {
     console.error('Erreur lors de la deconnexion :', error.message);
   }
