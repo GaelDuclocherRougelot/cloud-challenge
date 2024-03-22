@@ -1,4 +1,4 @@
-import {addDoc, collection, getDocs, doc, updateDoc} from "firebase/firestore";
+import {addDoc, collection, getDocs, doc, updateDoc, query, where} from "firebase/firestore";
 import {auth, db} from "../utils/firebase_init.js";
 
 export const createSolution = async (challengeData, githubLink, currentUser ) => {
@@ -68,4 +68,55 @@ export const validateSolution = async (solutionId) => {
     console.error("Erreur lors de la validation :", e);
   }
 }
+
+export const failedSolution = async (solutionId) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("Utilisateur non connecté");
+      return;
+    }
+
+    const solutionRef = doc(db, "Solutions", solutionId);
+    await updateDoc(solutionRef, {
+      status: 'Refus'
+    });
+  } catch (e) {
+    console.error("Erreur lors de la validation :", e);
+  }
+}
+
+export const getValidatedSolutions= async (userId) => {
+  try {
+    const q = query(collection(db, 'Solutions'), where('createdBy.uid', '==', userId), where('status', '==', 'Valide'));
+    const querySnapshot = await getDocs(q);
+    const createSolutions = [];
+
+    querySnapshot.forEach((doc) => {
+      createSolutions.push({ key: doc.id, ...doc.data() });
+    });
+
+    return createSolutions;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des challenges créés :', error);
+    return [];
+  }
+};
+
+export const getFailedSolutions= async (userId) => {
+  try {
+    const q = query(collection(db, 'Solutions'), where('createdBy.uid', '==', userId), where('status', '==', 'Refus'));
+    const querySnapshot = await getDocs(q);
+    const createSolutions = [];
+
+    querySnapshot.forEach((doc) => {
+      createSolutions.push({ key: doc.id, ...doc.data() });
+    });
+
+    return createSolutions;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des challenges créés :', error);
+    return [];
+  }
+};
 

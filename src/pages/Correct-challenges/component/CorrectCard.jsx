@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {validateSolution} from "../../../api/solution.js";
+import {failedSolution, validateSolution} from "../../../api/solution.js";
 
 function formatCreatedAt(createdAt) {
   const currentDate = new Date();
@@ -46,6 +46,12 @@ export const CorrectCard = ({solution}) => {
     e.preventDefault()
     setShowPopup(false);
     return await validateSolution(solution.id);
+  }
+
+  const handleFailed = async (e) => {
+    e.preventDefault()
+    setShowPopup(false);
+    return await failedSolution(solution.id);
   }
 
   return (
@@ -102,6 +108,7 @@ export const CorrectCard = ({solution}) => {
                   <button
                       type="submit"
                       className="bg-red-500 hover:bg-red-600 my-4 text-white font-bold py-2 px-4 rounded"
+                      onClick={handleFailed}
                   >
                     Non
                   </button>
