@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom/dist'
-import {auth} from "../../utils/firebase_init.js";
+import { auth } from '../../utils/firebase_init.js'
 
 const nav_links = [
   {
@@ -17,7 +17,7 @@ const nav_links = [
   },
   {
     title: 'Mon Profil',
-    slug: '/my-profil',
+    slug: '/my-profile',
   },
   {
     title: 'Contribution',
@@ -25,32 +25,35 @@ const nav_links = [
   },
 ]
 const logout = async () => {
-
   try {
-    await auth.signOut();
-    window.location.href = '/';
+    await auth.signOut()
+    window.location.href = '/'
   } catch (error) {
-    console.error('Erreur lors de la deconnexion :', error.message);
+    console.error('Erreur lors de la deconnexion :', error.message)
   }
 }
 export default function Navbar() {
   const location = useLocation()
   return (
-    <nav className="flex flex-col w-[240px] h-[100vh] fixed bg-white left-0 top-0 rounded-e-xl shadow-md border-r border-y py-3 px-4">
+    <nav className="flex flex-col w-[240px] h-[100vh] fixed bg-white left-0 top-0 rounded-e-xl shadow-md border-r border-y py-6 px-4 justify-between">
       <ul className="flex flex-col gap-6">
         {nav_links.length > 0 &&
           nav_links.map((link, index) => (
             <Link
               to={link.slug}
-              className={`${location.pathname === link.slug ? 'bg-bleue text-white' : ''} p-3  rounded-md`}
+              className={`${location.pathname === link.slug ? 'bg-bleue text-white' : ''} p-3 rounded-md`}
               key={index}
             >
               <li>{link.title}</li>
             </Link>
           ))}
-
-          <button className='bg-blue-300 text-white p-3 rounded-md' onClick={logout}>Déconnexion</button>
       </ul>
+      <button
+        className="border-[2px] border-bleue text-bleue p-3 rounded-md hover:bg-bleue hover:text-white transition-colors duration-300 ease-in-out"
+        onClick={logout}
+      >
+        Déconnexion
+      </button>
     </nav>
   )
 }
