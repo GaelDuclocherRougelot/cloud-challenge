@@ -1,4 +1,4 @@
-import {addDoc, collection, getDocs} from "firebase/firestore";
+import {addDoc, collection, getDocs, doc, updateDoc} from "firebase/firestore";
 import {auth, db} from "../utils/firebase_init.js";
 
 export const createSolution = async (challengeData, githubLink, currentUser ) => {
@@ -20,7 +20,7 @@ export const createSolution = async (challengeData, githubLink, currentUser ) =>
         lastName: currentUser.lastName
       },
       level: currentUser.level,
-      validated: false
+      status: 'En cours',
     });
     console.log("Document written with ID: ", docRef.id);
 
@@ -41,7 +41,7 @@ export const getAllSolutions = async () => {
 
     solutionsSnapshot.forEach((doc) => {
       const solutionData = { id: doc.id, ...doc.data() };
-      if (solutionData.createdBy.uid !== user.uid && !solutionData.validated) {
+      if (solutionData.createdBy.uid !== user.uid && solutionData.status === 'En cours') {
         solutions.push(solutionData);
       }
     });
@@ -51,3 +51,21 @@ export const getAllSolutions = async () => {
     return [];
   }
 };
+
+export const validateSolution = async (solutionId) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("Utilisateur non connecté");
+      return;
+    }
+
+    const solutionRef = doc(db, "Solutions", solutionId);
+    await updateDoc(solutionRef, {
+      status: 'Valide'
+    });
+  } catch (e) {
+    console.error("Erreur lors de la validation :", e);
+  }
+}
+

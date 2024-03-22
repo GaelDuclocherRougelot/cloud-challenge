@@ -1,5 +1,6 @@
-
 import {useState} from "react";
+import {validateSolution} from "../../../api/solution.js";
+
 function formatCreatedAt(createdAt) {
   const currentDate = new Date();
   const createdDate = new Date(createdAt);
@@ -31,15 +32,22 @@ function formatCreatedAt(createdAt) {
 }
 
 export const CorrectCard = ({solution}) => {
+  console.log(solution);
   const [showPopup, setShowPopup] = useState(false);
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
   const handleSubmit = async (e) => {
     e.preventDefault()
-   // await createSolution(challenge, githubLink, currentUser);
     setShowPopup(false);
   };
+
+  const handleValidate = async (e) => {
+    e.preventDefault()
+    setShowPopup(false);
+    return await validateSolution(solution.id);
+  }
+
   return (
       <div className='flex flex-col gap-10 p-10 size-full'>
         <div className="flex flex-col rounded-lg border border-border_card w-full p-6 gap-6 ">
@@ -87,6 +95,7 @@ export const CorrectCard = ({solution}) => {
                   <button
                       type="submit"
                       className="bg-blue-500 hover:bg-blue-600 my-4 text-white font-bold py-2 px-4 rounded"
+                      onClick={handleValidate}
                   >
                     Oui
                   </button>
