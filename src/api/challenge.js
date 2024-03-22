@@ -38,28 +38,4 @@ export const createChallenge = async (title, githubLink, description, category, 
   }
 }
 
-export const getAllChallenges = async () => {
-  try {
-    const user = auth.currentUser;
-    if (!user) {
-      console.error("Utilisateur non connecté");
-      return [];
-    }
-
-    const challengesSnapshot = await getDocs(collection(db, "challenges"));
-    const challenges = [];
-
-    challengesSnapshot.forEach((doc) => {
-      const challengeData = { id: doc.id, ...doc.data() };
-      if (challengeData.createdBy.uid !== user.uid && !challengeData.validated) {
-        challenges.push(challengeData);
-      }
-    });
-
-    return challenges;
-  } catch (e) {
-    console.error("Erreur lors de la récupération des challenges :", e);
-    return [];
-  }
-};
 
