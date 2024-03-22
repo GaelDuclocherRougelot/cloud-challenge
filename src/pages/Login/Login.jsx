@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import  { useEffect, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {auth, app} from "../../utils/firebase_init.js";
+import { auth, app } from "../../utils/firebase_init.js";
 import { getChallengerById } from "../../api/challenger.js";
-
+import { showMessage } from '../../utils/messageUtils.js';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,6 +35,7 @@ const Login = () => {
       if (user) {
         try {
           navigate('/home');
+          showMessage({ content: 'Connexion réussie !', type: 'success' });
         } catch (error) {
           console.error('Erreur lors de la configuration de la persistance :', error.message);
         }

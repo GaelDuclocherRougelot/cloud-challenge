@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {createChallenger} from "../../api/challenger.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
