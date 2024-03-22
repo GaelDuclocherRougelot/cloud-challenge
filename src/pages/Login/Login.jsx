@@ -22,10 +22,12 @@ const Login = () => {
     try {
      const challenger = await signInWithEmailAndPassword(auth, email, password);
       await getChallengerById(challenger.user.uid);
-      await auth.setPersistence(app.auth.Auth.Persistence.SESSION);
+     // await auth.setPersistence(app.auth.Auth.Persistence.SESSION);
       navigate('/home');
     } catch (error) {
       console.error('Erreur lors de la connexion :', error.message);
+      showMessage({ content: 'Identifiant ou mot de passe incorrecte !', type: 'error' });
+      
     }
 
   }
@@ -38,6 +40,8 @@ const Login = () => {
           showMessage({ content: 'Connexion réussie !', type: 'success' });
         } catch (error) {
           console.error('Erreur lors de la configuration de la persistance :', error.message);
+          
+
         }
       }
     });

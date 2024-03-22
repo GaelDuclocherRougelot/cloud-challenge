@@ -15,8 +15,9 @@ export default function FormCreateChallenge() {
     e.preventDefault();
 
     if (!title || !githubLink || !description || !category) {
-      console.error('Veuillez remplir tous les champs.');
-      return;
+      showMessage({ content: 'Veuillez remplir tous les champs.', type: 'error' });
+      console.log('hey')
+      return; // Ajoutez un return ici pour sortir de la fonction si la condition est vraie
     }
 
     // const githubLinkRegex = /^https?://(www.)?github.com/\S+$/;
@@ -42,7 +43,7 @@ export default function FormCreateChallenge() {
   return (
     <div className='pl-10 py-3 size-full'>
       <h1 className='text-3xl font-semibold'>Créer un challenge</h1>
-      <form className='flex flex-col pt-20 items-center ' onSubmit={handleSubmit}>
+      <form noValidate className='flex flex-col pt-20 items-center ' onSubmit={handleSubmit}>
         <div className='flex flex-col'>
           <label className='py-4 text-xl'>Titre du challenge:</label>
           <input
