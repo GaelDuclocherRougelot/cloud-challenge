@@ -1,5 +1,6 @@
-
 import {useState} from "react";
+import {failedSolution, validateSolution} from "../../../api/solution.js";
+
 function formatCreatedAt(createdAt) {
   const currentDate = new Date();
   const createdDate = new Date(createdAt);
@@ -14,47 +15,60 @@ function formatCreatedAt(createdAt) {
   const yearsDifference = Math.floor(daysDifference / 365);
 
   if (yearsDifference > 0) {
-    return `créé par il y a ${yearsDifference} an${yearsDifference > 1 ? 's' : ''}`;
+    return `corrigé par il y a ${yearsDifference} an${yearsDifference > 1 ? 's' : ''}`;
   } else if (monthsDifference > 0) {
-    return `créé il y a ${monthsDifference} mois`;
+    return `corrigé il y a ${monthsDifference} mois`;
   } else if (weeksDifference > 0) {
-    return `créé il y a ${weeksDifference} semaine${weeksDifference > 1 ? 's' : ''}`;
+    return `corrigé il y a ${weeksDifference} semaine${weeksDifference > 1 ? 's' : ''}`;
   } else if (daysDifference > 0) {
-    return `créé il y a ${daysDifference} jour${daysDifference > 1 ? 's' : ''}`;
+    return `corrigé il y a ${daysDifference} jour${daysDifference > 1 ? 's' : ''}`;
   } else if (hoursDifference > 0) {
-    return `créé il y a ${hoursDifference} heure${hoursDifference > 1 ? 's' : ''}`;
+    return `corrigé il y a ${hoursDifference} heure${hoursDifference > 1 ? 's' : ''}`;
   } else if (minutesDifference > 0) {
-    return `créé il y a ${minutesDifference} minute${minutesDifference > 1 ? 's' : ''}`;
+    return `corrigé il y a ${minutesDifference} minute${minutesDifference > 1 ? 's' : ''}`;
   } else {
-    return `créé il y a quelques instants`;
+    return `corrigé il y a quelques instants`;
   }
 }
 
 export const CorrectCard = ({solution}) => {
+  console.log(solution);
   const [showPopup, setShowPopup] = useState(false);
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
   const handleSubmit = async (e) => {
     e.preventDefault()
-   // await createSolution(challenge, githubLink, currentUser);
     setShowPopup(false);
   };
+
+  const handleValidate = async (e) => {
+    e.preventDefault()
+    setShowPopup(false);
+    return await validateSolution(solution.id);
+  }
+
+  const handleFailed = async (e) => {
+    e.preventDefault()
+    setShowPopup(false);
+    return await failedSolution(solution.id);
+  }
+
   return (
-      <div className='flex flex-col gap-10 p-10 size-full'>
-        <div className="flex flex-col rounded-lg border border-border_card w-full p-6 gap-6 ">
+      <div className='fflex flex-col rounded-lg border border-border_card w-full p-6 gap-6'>
+        <div className="flex flex-col gap-4">
           <div className="flex items-center gap-4">
             {/* <img src="#" alt="profile picture" /> */}
             <div className="flex flex-col">
-              <p className="text-sm">{solution.createdBy.lastName} {solution.createdBy.firstName } - Niveau {solution.level} </p>
-              <p>Challenge crée par {solution.challengeData.createdBy.lastName} {solution.challengeData.createdBy.firstName} </p>
+              <p className="text-sm">Challenge créer par {solution.challengeData.createdBy.lastName} {solution.challengeData.createdBy.firstName} - Niveau du challenge : {solution.level} </p>
+              {/*<p>Challenge corrigé par {solution.challengeData.createdBy.lastName} {solution.challengeData.createdBy.firstName} </p>*/}
               <p className="text-xs">{formatCreatedAt(solution.createdAt)}</p>
             </div>
           </div>
           <div className="flex flex-col gap-2 overflow-hidden">
-            <p className="text-2xl"></p>
+            <p className="text-2xl">{solution.challengeData.title}</p>
             <p className="text-sm line-clamp-3 text-ellipsis">
-
+              {solution.challengeData.description}
             </p>
           </div>
           <div className="flex flex-col gap-2">
@@ -72,9 +86,6 @@ export const CorrectCard = ({solution}) => {
                     </span>{' '}
               </div>
             </div>
-            <button onClick={togglePopup} className="w-fit h-fit self-end border border-btn_green text-sm text-btn_green px-4 py-3 rounded-md hover:bg-btn_green hover:text-white transition-colors duration-300 ease-in-out">
-              Soumettre ma réponse
-          </button>
           </div>
         </div>
         {showPopup && (
@@ -87,12 +98,14 @@ export const CorrectCard = ({solution}) => {
                   <button
                       type="submit"
                       className="bg-blue-500 hover:bg-blue-600 my-4 text-white font-bold py-2 px-4 rounded"
+                      onClick={handleValidate}
                   >
                     Oui
                   </button>
                   <button
                       type="submit"
                       className="bg-red-500 hover:bg-red-600 my-4 text-white font-bold py-2 px-4 rounded"
+                      onClick={handleFailed}
                   >
                     Non
                   </button>
