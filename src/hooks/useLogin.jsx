@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase_init";
 import { getChallengerById } from "../api/challenger";
-
+import { showMessage } from '../utils/messageUtils';
 export function useLogin(email, password) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -30,6 +30,7 @@ export function useLogin(email, password) {
       if (user) {
         try {
           navigate('/home');
+          showMessage({ content: 'Connexion réussi !', type: 'success' });
         } catch (error) {
           console.error('Erreur lors de la configuration de la persistance :', error.message);
         }
